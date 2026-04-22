@@ -6,18 +6,6 @@
     <meta name="theme-color" content="#050509">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="data:application/manifest+json,{
-      %22name%22:%22NEXUS%20AI%20Marketplace%22,
-      %22short_name%22:%22NEXUS%20AI%22,
-      %22start_url%22:%22.%22,
-      %22display%22:%22standalone%22,
-      %22background_color%22:%22%23050509%22,
-      %22theme_color%22:%22%2300f2ff%22,
-      %22icons%22:[
-        {%22src%22:%22https://cdn-icons-png.flaticon.com/512/1061/1061146.png%22,%22sizes%22:%22192x192%22},
-        {%22src%22:%22https://cdn-icons-png.flaticon.com/512/1061/1061146.png%22,%22sizes%22:%22512x512%22}
-      ]
-    }">
     <title>NEXUS // AI Model Marketplace - 128+ SLMs | 100M Tokens Grátis</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -59,7 +47,6 @@
         .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
         .neon { color: var(--primary); }
         
-        /* Hero Section */
         .hero { text-align: center; padding: 3rem 0 2rem 0; }
         .hero h1 { font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
         .hero p { font-size: 1rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem auto; }
@@ -69,15 +56,12 @@
         .hero-stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
         .free-badge { display: inline-block; background: var(--primary-dim); border: 1px solid var(--primary); color: var(--primary); padding: 0.3rem 1rem; border-radius: 30px; font-size: 0.7rem; font-weight: 600; margin-top: 1rem; }
         
-        /* Custom Section */
         .custom-section { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 2rem; text-align: center; margin: 2rem 0; }
         .custom-section h3 { font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 0.5rem; }
         .custom-section p { font-size: 0.85rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem auto; }
         .custom-textarea { width: 100%; max-width: 600px; margin: 0 auto 1rem auto; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 0.8rem; color: var(--text-main); font-family: var(--font-mono); font-size: 0.8rem; resize: vertical; min-height: 80px; display: block; }
         .custom-textarea:focus { outline: none; border-color: var(--primary); }
         
-        /* Models Grid */
-        .section-title { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 1rem; }
         .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0 2rem 0; }
         .model-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1rem; transition: all 0.2s; cursor: pointer; }
         .model-card:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,242,255,0.1); }
@@ -90,7 +74,6 @@
         .deploy-btn { background: var(--primary-dim); border: 1px solid var(--primary); padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.65rem; cursor: pointer; transition: 0.2s; color: var(--primary); font-family: var(--font-mono); }
         .deploy-btn:hover { background: var(--primary); color: #000; }
         
-        /* MODAL GERAL */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
         .modal-content { background: var(--bg-card); border: 1px solid var(--primary); border-radius: 20px; max-width: 480px; width: 90%; padding: 1.5rem; position: relative; animation: modalFadeIn 0.3s ease; }
         @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -102,7 +85,6 @@
         .modal-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
         .modal-buttons button { flex: 1; }
         
-        /* Dashboard */
         .panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem; }
         .panel-title { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
         .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
@@ -115,7 +97,6 @@
         .transaction-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.7rem; flex-wrap: wrap; gap: 0.5rem; }
         .token-badge { background: linear-gradient(135deg, #00f2ff10, #bc00ff10); border: 1px solid var(--primary); border-radius: 20px; padding: 0.5rem; font-family: var(--font-mono); font-size: 0.7rem; text-align: center; margin-top: 1rem; }
         
-        /* Buttons */
         .btn-primary { background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; font-weight: 600; cursor: pointer; color: white; padding: 0.6rem 1.2rem; border-radius: 10px; transition: opacity 0.2s; font-family: var(--font-mono); font-size: 0.8rem; width: 100%; }
         .btn-primary:hover { opacity: 0.9; }
         .btn-secondary { background: transparent; border: 1px solid var(--primary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 10px; color: var(--primary); transition: all 0.2s; font-family: var(--font-mono); font-size: 0.75rem; }
@@ -123,7 +104,6 @@
         .btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
         .btn-danger:hover { background: var(--danger); color: #000; }
         
-        /* LOADING SCREENS */
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, #0a0b14 0%, #050509 100%); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
         body.light-theme .loading-overlay { background: radial-gradient(ellipse at center, #e0e0e0 0%, #cccccc 100%); }
         .loading-overlay.hide { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -131,11 +111,7 @@
         @keyframes loadingPulse { 0%,100% { opacity: 1; text-shadow: 0 0 5px var(--primary); } 50% { opacity: 0.6; text-shadow: 0 0 20px var(--primary); } }
         .loading-spinner { width: 48px; height: 48px; border: 2px solid var(--border-subtle); border-top: 2px solid var(--primary); border-radius: 50%; animation: loadingSpin 1s linear infinite; margin: 1rem 0; }
         @keyframes loadingSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loading-progress { width: 250px; height: 2px; background: var(--border-subtle); border-radius: 2px; margin-top: 1rem; overflow: hidden; }
-        .loading-progress-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
-        .loading-text { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-top: 1rem; letter-spacing: 2px; }
         
-        /* Login Container */
         .login-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, #0a0b14 0%, #050509 100%); z-index: 1500; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; opacity: 1; }
         body.light-theme .login-container { background: radial-gradient(ellipse at center, #e0e0e0 0%, #cccccc 100%); }
         .login-container.hide { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -147,13 +123,6 @@
         .login-btn { width: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; padding: 0.7rem; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; font-family: var(--font-mono); font-size: 0.85rem; }
         .login-error { color: var(--danger); font-size: 0.75rem; text-align: center; margin-top: 0.8rem; }
         
-        /* PWA Banner */
-        .pwa-banner { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(135deg, #00f2ff, #bc00ff); color: #000; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1100; font-family: var(--font-mono); font-weight: 600; flex-wrap: wrap; gap: 10px; font-size: 0.75rem; }
-        .pwa-banner.hide-banner { display: none !important; }
-        .install-btn { background: #000; color: #00f2ff; border: none; padding: 4px 12px; border-radius: 30px; font-weight: bold; cursor: pointer; font-family: var(--font-mono); font-size: 0.7rem; }
-        .close-banner { background: rgba(0,0,0,0.3); color: #000; font-size: 1rem; cursor: pointer; padding: 2px 8px; border: none; border-radius: 50%; }
-        
-        /* Main App */
         .main-app { display: none; }
         .main-app.visible { display: block; }
         .header { position: sticky; top: 0; background: rgba(5, 5, 9, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle); padding: 0.6rem 0; z-index: 100; }
@@ -172,73 +141,48 @@
         .menu-item:hover { background: var(--primary-dim); }
         .menu-item i { width: 22px; color: var(--primary); }
         
-        /* Simulation Modal for Custom Model */
+        /* Simulation Modal */
         .simulation-log { background: var(--bg-elevated); border-radius: 8px; padding: 0.8rem; margin: 1rem 0; max-height: 200px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.7rem; text-align: left; color: var(--primary); border: 1px solid var(--border-subtle); }
         .simulation-log p { margin: 0.3rem 0; }
+        .sim-progress { width: 100%; height: 4px; background: var(--border-subtle); border-radius: 4px; margin: 1rem 0; overflow: hidden; }
+        .sim-progress-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
         
         @media (max-width: 640px) {
             .container { padding: 0 1rem; }
             .hero h1 { font-size: 1.8rem; }
-            .hero-stats { gap: 1rem; }
-            .hero-stat-number { font-size: 1.5rem; }
             .models-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- PRIMEIRO LOADING (antes do cadastro) -->
 <div class="loading-overlay" id="initialLoading">
     <div class="loading-glitch">NEXUS//AI</div>
     <div class="loading-spinner"></div>
-    <div class="loading-progress">
-        <div class="loading-progress-bar" id="loadingProgressBar1"></div>
-    </div>
-    <div class="loading-text" id="loadingStatus1">INICIALIZANDO SISTEMA...</div>
+    <div class="loading-text">INICIALIZANDO SISTEMA...</div>
 </div>
 
-<!-- TELA DE LOGIN/CADASTRO -->
 <div class="login-container" id="loginContainer">
     <div class="login-box">
         <h2><i class="fas fa-brain"></i> NEXUS AI MARKETPLACE</h2>
-        <div class="login-subtitle" id="loginSubtitle">Small Language Models for Business</div>
+        <div class="login-subtitle">Small Language Models for Business</div>
         <input type="text" id="loginUser" class="login-input" placeholder="Usuário" value="nexus_user">
         <input type="password" id="loginPass" class="login-input" placeholder="Senha" value="nexus2026">
-        <button class="login-btn" id="loginBtn"><i class="fas fa-gem"></i> <span id="loginBtnText">CRIAR CONTA • 100M TOKENS GRÁTIS</span></button>
+        <button class="login-btn" id="loginBtn"><i class="fas fa-gem"></i> CRIAR CONTA • 100M TOKENS GRÁTIS</button>
         <div id="loginError" class="login-error"></div>
-        <div class="token-badge" id="loginTokenBadge">
-            <i class="fas fa-coins"></i> <span id="loginTokenText">PLANO 0 • 100 MILHÕES DE TOKENS GRÁTIS NO CADASTRO</span>
-        </div>
-        <p style="text-align: center; margin-top: 0.8rem; font-size: 0.6rem; color: var(--text-muted);" id="loginHint">🔬 Qualquer usuário/senha cria conta com 100M tokens</p>
+        <div class="token-badge"><i class="fas fa-coins"></i> PLANO 0 • 100 MILHÕES DE TOKENS GRÁTIS NO CADASTRO</div>
     </div>
 </div>
 
-<!-- SEGUNDO LOADING (depois do cadastro, antes do dashboard) -->
-<div class="loading-overlay" id="secondLoading" style="z-index: 2500; display: none;">
-    <div class="loading-glitch">CARREGANDO...</div>
-    <div class="loading-spinner"></div>
-    <div class="loading-progress">
-        <div class="loading-progress-bar" id="loadingProgressBar2"></div>
-    </div>
-    <div class="loading-text" id="loadingStatus2">PREPARANDO MARKETPLACE...</div>
-</div>
-
-<!-- MAIN APP -->
 <div class="main-app" id="mainApp">
-    <div id="pwaBanner" class="pwa-banner">
-        <div><i class="fas fa-mobile-alt"></i> <span id="bannerText">INSTALE O NEXUS AI MARKETPLACE • 128+ modelos</span></div>
-        <div><button id="installAppBtn" class="install-btn"><span id="installBtnText">INSTALAR</span></button><button id="closeBannerBtn" class="close-banner">✕</button></div>
-    </div>
-
     <div class="side-menu" id="sideMenu">
-        <div class="menu-item" id="menuBrowse"><i class="fas fa-store"></i> <span id="menuBrowseText">Browse Models</span></div>
-        <div class="menu-item" id="menuCustom"><i class="fas fa-microchip"></i> <span id="menuCustomText">Custom Model</span></div>
-        <div class="menu-item" id="menuDashboard"><i class="fas fa-chart-line"></i> <span id="menuDashboardText">Dashboard</span></div>
-        <div class="menu-item" id="menuDeployed"><i class="fas fa-rocket"></i> <span id="menuDeployedText">Deployed</span></div>
-        <div class="menu-item" id="menuTokens"><i class="fas fa-coins"></i> <span id="menuTokensText">Tokens</span></div>
-        <div class="menu-item" id="menuTheme"><i class="fas fa-moon"></i> <span id="menuThemeText">Tema Claro/Escuro</span></div>
-        <div class="menu-item" id="menuLang"><i class="fas fa-language"></i> <span id="menuLangText">Idioma: Português</span></div>
-        <div class="menu-item" id="menuLogout"><i class="fas fa-sign-out-alt"></i> <span id="menuLogoutText">Sair</span></div>
+        <div class="menu-item" id="menuBrowse"><i class="fas fa-store"></i> Browse Models</div>
+        <div class="menu-item" id="menuCustom"><i class="fas fa-microchip"></i> Custom Model</div>
+        <div class="menu-item" id="menuDashboard"><i class="fas fa-chart-line"></i> Dashboard</div>
+        <div class="menu-item" id="menuDeployed"><i class="fas fa-rocket"></i> Deployed</div>
+        <div class="menu-item" id="menuTokens"><i class="fas fa-coins"></i> Tokens</div>
+        <div class="menu-item" id="menuTheme"><i class="fas fa-moon"></i> Tema Claro/Escuro</div>
+        <div class="menu-item" id="menuLogout"><i class="fas fa-sign-out-alt"></i> Sair</div>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
 
@@ -251,8 +195,8 @@
                 </div>
                 <div class="user-info">
                     <span><i class="fas fa-user-astronaut"></i> <span id="userNameDisplay">User</span></span>
-                    <span class="status-badge"><i class="fas fa-circle" style="font-size: 0.35rem;"></i> <span id="statusText">LIVE</span></span>
-                    <span class="token-display" id="tokenDisplay"><i class="fas fa-coins"></i> <span id="tokenAmount">100,000,000</span> <span id="tokenLabel">tokens</span></span>
+                    <span class="status-badge"><i class="fas fa-circle" style="font-size: 0.35rem;"></i> LIVE</span>
+                    <span class="token-display" id="tokenDisplay"><i class="fas fa-coins"></i> <span id="tokenAmount">100,000,000</span> tokens</span>
                 </div>
             </div>
         </div>
@@ -265,150 +209,344 @@
 
 <script>
     (function() {
-        // Initial Loading (3s)
-        const initialLoading = document.getElementById("initialLoading");
-        const loadingProgressBar1 = document.getElementById("loadingProgressBar1");
-        const loadingStatus1 = document.getElementById("loadingStatus1");
-        let progress1 = 0;
-        const interval1 = setInterval(() => {
-            progress1 += 25;
-            if (loadingProgressBar1) loadingProgressBar1.style.width = progress1 + "%";
-            if (loadingStatus1) loadingStatus1.innerText = ["INICIALIZANDO SISTEMA...", "CARREGANDO MÓDULOS DE IA...", "CONECTANDO AO MARKETPLACE...", "PREPARANDO 128+ MODELOS..."][Math.floor(progress1 / 25)];
-            if (progress1 >= 100) { clearInterval(interval1); setTimeout(() => { initialLoading.classList.add("hide"); setTimeout(() => initialLoading.style.display = "none", 500); }, 200); }
-        }, 750);
+        // Initial loading
+        setTimeout(() => {
+            const loading = document.getElementById("initialLoading");
+            loading.classList.add("hide");
+            setTimeout(() => loading.style.display = "none", 500);
+        }, 2500);
         
         const db = localforage.createInstance({ name: "NexusMarketplace", storeName: "user_data" });
         let userTokens = 100000000;
         let currentUser = null;
         let deployedModels = [];
         let modelUsageHistory = [];
-        let deferredPrompt = null;
-        let currentLang = "pt";
         
+        // 128+ models catalog
         const modelCatalog = [
-            { id: "finance-predict", name: "FinancePredict SLM", type: "Task SLM", params: "1.2B", desc: "Previsão de tendências de mercado e análise financeira com 97% de acurácia", longDesc: "Modelo especializado em previsão de movimentos de mercado utilizando análise de séries temporais e indicadores econômicos. Ideal para traders e analistas financeiros.", task: "finance", cost: 1000, category: "Finance", accuracy: "97.3%" },
-            { id: "sentiment-trader", name: "SentimentTrader", type: "Task SLM", params: "890M", desc: "Análise de sentimento de mercado de notícias e redes sociais", longDesc: "Processa milhões de posts e notícias em tempo real para identificar tendências de sentimento que afetam os preços dos ativos.", task: "sentiment", cost: 800, category: "Finance", accuracy: "94.8%" },
-            { id: "risk-analyzer", name: "RiskAnalyzer", type: "General <20B", params: "7B", desc: "Avaliação de risco de portfólio e previsão de volatilidade", longDesc: "Analisa correlações entre ativos, calcula VaR (Value at Risk) e sugere alocações otimizadas para minimizar exposição.", task: "risk", cost: 2500, category: "Risk", accuracy: "96.2%" },
-            { id: "earnings-forecast", name: "EarningsForecaster", type: "Task SLM", params: "450M", desc: "Previsão de lucros trimestrais para ações", longDesc: "Utiliza fundamentos da empresa, histórico de resultados e expectativas do mercado para prever earnings por ação (EPS).", task: "earnings", cost: 600, category: "Finance", accuracy: "91.5%" },
-            { id: "crypto-signal", name: "CryptoSignal AI", type: "General <20B", params: "13B", desc: "Previsão de movimento de preços de criptomoedas", longDesc: "Analisa on-chain data, fluxo de ordens e sentimento de mercado para gerar sinais de compra/venda para BTC, ETH e altcoins.", task: "crypto", cost: 3000, category: "Crypto", accuracy: "88.9%" },
-            { id: "fraud-detection", name: "FraudDetector", type: "Task SLM", params: "680M", desc: "Detecção de fraudes em transações em tempo real", longDesc: "Identifica padrões suspeitos e anomalias em transações financeiras com alta precisão, reduzindo falsos positivos.", task: "fraud", cost: 1200, category: "Security", accuracy: "99.1%" },
-            { id: "portfolio-optim", name: "PortfolioOptimizer", type: "Task SLM", params: "520M", desc: "Alocação de ativos e otimização de portfólio", longDesc: "Utiliza fronteira eficiente de Markowitz para otimizar retorno ajustado ao risco de carteiras de investimentos.", task: "portfolio", cost: 900, category: "Finance", accuracy: "93.4%" },
-            { id: "options-pricing", name: "OptionsPricer", type: "Task SLM", params: "350M", desc: "Precificação de opções e cálculo de gregas", longDesc: "Implementa modelo Black-Scholes e simulações de Monte Carlo para precificar opções e calcular delta, gamma, theta e vega.", task: "options", cost: 700, category: "Finance", accuracy: "95.2%" }
+            { id: "finance-predict", name: "FinancePredict SLM", type: "Task SLM", params: "1.2B", desc: "Previsão de tendências de mercado com 97% de acurácia", longDesc: "Modelo especializado em previsão de movimentos de mercado utilizando análise de séries temporais.", cost: 1000, category: "Finance", accuracy: "97.3%" },
+            { id: "sentiment-trader", name: "SentimentTrader", type: "Task SLM", params: "890M", desc: "Análise de sentimento de mercado em tempo real", longDesc: "Processa notícias e redes sociais para identificar tendências de sentimento.", cost: 800, category: "Finance", accuracy: "94.8%" },
+            { id: "risk-analyzer", name: "RiskAnalyzer", type: "General <20B", params: "7B", desc: "Avaliação de risco de portfólio", longDesc: "Calcula VaR e sugere alocações otimizadas.", cost: 2500, category: "Risk", accuracy: "96.2%" },
+            { id: "crypto-signal", name: "CryptoSignal AI", type: "General <20B", params: "13B", desc: "Previsão de preços de criptomoedas", longDesc: "Analisa on-chain data para gerar sinais de compra/venda.", cost: 3000, category: "Crypto", accuracy: "88.9%" },
+            { id: "fraud-detection", name: "FraudDetector", type: "Task SLM", params: "680M", desc: "Detecção de fraudes em transações", longDesc: "Identifica padrões suspeitos com alta precisão.", cost: 1200, category: "Security", accuracy: "99.1%" }
         ];
+        
+        // Generate more models up to 128
         const categories = ["Finance", "Trading", "Crypto", "Risk", "Economics", "Security", "Quant", "NLP"];
-        const types = ["Task SLM", "General <20B"];
         for (let i = modelCatalog.length + 1; i <= 128; i++) {
-            modelCatalog.push({ id: `model-${i}`, name: `SLM-${Math.floor(Math.random() * 9000 + 1000)}`, type: types[Math.floor(Math.random() * types.length)], params: `${(Math.random() * 15 + 0.1).toFixed(1)}B`, desc: `Modelo especializado para ${categories[Math.floor(Math.random() * categories.length)]} - análise preditiva e otimização`, longDesc: `Modelo treinado para ${categories[Math.floor(Math.random() * categories.length)]} com alta precisão.`, task: "general", cost: Math.floor(Math.random() * 3000) + 300, category: categories[Math.floor(Math.random() * categories.length)], accuracy: `${(Math.random() * 10 + 85).toFixed(1)}%` });
-        }
-        
-        const texts = { pt: { loginSubtitle: "Small Language Models for Business", loginBtnText: "CRIAR CONTA • 100M TOKENS GRÁTIS", loginTokenText: "PLANO 0 • 100 MILHÕES DE TOKENS GRÁTIS NO CADASTRO", loginHint: "🔬 Qualquer usuário/senha cria conta com 100M tokens", bannerText: "INSTALE O NEXUS AI MARKETPLACE • 128+ modelos", installBtnText: "INSTALAR", menuBrowse: "Browse Models", menuCustom: "Custom Model", menuDashboard: "Dashboard", menuDeployed: "Deployed", menuTokens: "Tokens", menuTheme: "Tema Claro/Escuro", menuLang: "Idioma: Português", menuLogout: "Sair", statusText: "LIVE", tokenLabel: "tokens", heroTitle: "Small Models, Big Impact", heroDesc: "Descubra SLMs prontos para tarefas específicas do seu negócio, ou navegue por modelos gerais com menos de 20B parâmetros.", freeBadge: "✨ Navegação gratuita — Pague apenas pela inferência", browseTitle: "Browse Models", customTitle: "Need a Custom Model?", customDesc: "Descreva sua tarefa em linguagem natural e nós construiremos um SLM sob medida para você.", customPlaceholder: "Descreva sua tarefa de IA em linguagem natural. Ex: 'Preciso de um modelo que preveja movimentos de ações'", customBtn: "Solicitar Modelo Personalizado (2.500 tokens)", deployedTitle: "Meus Modelos Implantados", noModels: "Nenhum modelo implantado ainda", tokensAvailable: "tokens disponíveis", tokenWarning: "Plano 0 - 100M tokens gratuitos", noUsage: "Nenhum consumo registrado", noActivity: "Nenhuma atividade recente", deployedAt: "Implantado em", removeBtn: "Remover", deployBtn: "Implantar", modalDeploy: "Implantar Modelo", modalConfirmTitle: "Confirmar Implantação", modalConfirmDesc: "Tem certeza que deseja implantar este modelo?", modalSuccessTitle: "Sucesso!", modalSuccessDesc: "Modelo implantado com sucesso!", modalErrorTitle: "Erro", modalErrorDesc: "Tokens insuficientes! Recarregue seu plano.", modalInfoTitle: "Sobre o Modelo", insufficientTokens: "❌ Tokens insuficientes!", deployedAlert: "✅ Modelo implantado com sucesso!", customRequestSent: "✅ Solicitação enviada! Nossa equipe entrará em contato.", recentActivity: "Atividade Recente", myTokens: "Meus Tokens", usageHistory: "Histórico de Consumo", activeModels: "MODELOS ATIVOS", transactions: "TRANSAÇÕES", cancel: "Cancelar", confirm: "Confirmar" }, en: { ... } };
-        function t(key) { return texts[currentLang][key] || key; }
-        function formatNumber(n) { return n.toLocaleString(currentLang === 'pt' ? 'pt-BR' : 'en-US'); }
-        
-        function showModal(title, body, onConfirm = null, showCancel = false) { /* simplified modal logic */ const modal = document.getElementById("actionModal"); if (!modal) return; document.getElementById("modalTitle").innerHTML = title; document.getElementById("modalBody").innerHTML = body; document.getElementById("modalConfirmBtn").innerHTML = t("confirm"); document.getElementById("modalCancelBtn").style.display = showCancel ? "block" : "none"; const newConfirm = document.getElementById("modalConfirmBtn").cloneNode(true); document.getElementById("modalConfirmBtn").parentNode.replaceChild(newConfirm, document.getElementById("modalConfirmBtn")); newConfirm.onclick = () => { closeModal("actionModal"); if (onConfirm) onConfirm(); }; document.getElementById("modalCancelBtn").onclick = () => closeModal("actionModal"); modal.style.display = "flex"; }
-        function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) modal.style.display = "none"; }
-        function showSuccessModal(msg) { const modal = document.getElementById("successModal"); if(modal){ document.getElementById("successModalTitle").innerHTML = `<i class="fas fa-check-circle"></i> ${t("modalSuccessTitle")}`; document.getElementById("successModalBody").innerHTML = msg; modal.style.display = "flex"; setTimeout(()=>modal.style.display="none",3000); } }
-        function showErrorModal(msg) { const modal = document.getElementById("errorModal"); if(modal){ document.getElementById("errorModalTitle").innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${t("modalErrorTitle")}`; document.getElementById("errorModalBody").innerHTML = msg; modal.style.display = "flex"; setTimeout(()=>modal.style.display="none",3000); } }
-        
-        async function spendTokens(amount, desc) { if (userTokens >= amount) { userTokens -= amount; await db.setItem(`tokens_${currentUser}`, userTokens); document.getElementById("tokenAmount").innerText = formatNumber(userTokens); modelUsageHistory.unshift({ date: new Date().toISOString(), amount, description: desc, balance: userTokens }); await db.setItem(`history_${currentUser}`, modelUsageHistory.slice(0, 50)); return true; } showErrorModal(t("insufficientTokens")); return false; }
-        
-        // SIMULAÇÃO DE TREINAMENTO IA
-        async function simulateCustomTraining(userPrompt) {
-            return new Promise((resolve) => {
-                const simModal = document.createElement("div");
-                simModal.className = "modal";
-                simModal.style.display = "flex";
-                simModal.innerHTML = `<div class="modal-content" style="max-width:500px;"><button class="modal-close" onclick="this.closest('.modal').remove()">✕</button><div class="modal-title"><i class="fas fa-microchip"></i> TREINANDO IA PERSONALIZADA</div><div class="modal-body"><div class="loading-progress" style="width:100%; margin-bottom:10px;"><div id="simProgressBar" class="loading-progress-bar" style="width:0%"></div></div><div id="simLog" class="simulation-log"><p>🚀 Inicializando cluster de treinamento...</p></div></div><button class="btn-secondary" id="simCloseBtn" style="display:none;">Fechar</button></div>`;
-                document.body.appendChild(simModal);
-                const progressBar = simModal.querySelector("#simProgressBar");
-                const logDiv = simModal.querySelector("#simLog");
-                let progress = 0;
-                const steps = [
-                    "📊 Analisando requisitos: " + userPrompt.substring(0, 60) + "...",
-                    "⚙️ Gerando arquitetura neural customizada (SLM < 2B parâmetros)...",
-                    "🧠 Coletando dataset sintético para fine-tuning...",
-                    "🔥 Treinando camadas de atenção com 512 GPUs distribuídas...",
-                    "📈 Acurácia validação cruzada: 94.7% | Perda: 0.023",
-                    "✅ Modelo personalizado 'NEXUS-CUSTOM-' gerado com sucesso!",
-                    "💰 Consumo de 2.500 tokens pelo treinamento."
-                ];
-                const interval = setInterval(() => {
-                    progress += 12.5;
-                    if (progressBar) progressBar.style.width = Math.min(progress, 100) + "%";
-                    if (Math.floor(progress / 12.5) - 1 < steps.length && progress <= 100) {
-                        const idx = Math.floor(progress / 12.5) - 1;
-                        if (idx >= 0 && idx < steps.length) {
-                            const p = document.createElement("p");
-                            p.innerHTML = steps[idx];
-                            logDiv.appendChild(p);
-                            logDiv.scrollTop = logDiv.scrollHeight;
-                        }
-                    }
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        const finalMsg = document.createElement("p");
-                        finalMsg.style.color = "var(--success)";
-                        finalMsg.innerHTML = "🎉 Treinamento concluído! Modelo pronto para implantação.";
-                        logDiv.appendChild(finalMsg);
-                        const closeBtn = simModal.querySelector("#simCloseBtn");
-                        if (closeBtn) closeBtn.style.display = "block";
-                        closeBtn.onclick = () => { simModal.remove(); resolve(true); };
-                    }
-                }, 500);
+            modelCatalog.push({
+                id: `model-${i}`,
+                name: `SLM-${Math.floor(Math.random() * 9000 + 1000)}`,
+                type: Math.random() > 0.5 ? "Task SLM" : "General <20B",
+                params: `${(Math.random() * 15 + 0.1).toFixed(1)}B`,
+                desc: `Modelo especializado para ${categories[Math.floor(Math.random() * categories.length)]}`,
+                longDesc: `Modelo treinado especificamente para tarefas de ${categories[Math.floor(Math.random() * categories.length)]}.`,
+                cost: Math.floor(Math.random() * 3000) + 300,
+                category: categories[Math.floor(Math.random() * categories.length)],
+                accuracy: `${(Math.random() * 10 + 85).toFixed(1)}%`
             });
         }
         
+        function formatNumber(n) { return n.toLocaleString('pt-BR'); }
+        
+        // SIMULAÇÃO DE TREINAMENTO - NOVA FUNÇÃO COM ANIMAÇÃO
+        function showTrainingSimulation(userPrompt, onComplete) {
+            const modal = document.createElement("div");
+            modal.className = "modal";
+            modal.style.display = "flex";
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width:500px;">
+                    <button class="modal-close" onclick="this.closest('.modal').remove()">✕</button>
+                    <div class="modal-title"><i class="fas fa-microchip"></i> 🧠 TREINANDO IA PERSONALIZADA</div>
+                    <div class="modal-body">
+                        <div class="sim-progress">
+                            <div class="sim-progress-bar" id="simProgress"></div>
+                        </div>
+                        <div class="simulation-log" id="simLog">
+                            <p>🚀 Iniciando cluster de treinamento...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const progressBar = modal.querySelector("#simProgress");
+            const logDiv = modal.querySelector("#simLog");
+            
+            const steps = [
+                "📊 Analisando requisitos: \"" + userPrompt.substring(0, 50) + "...\"",
+                "⚙️ Gerando arquitetura neural customizada (SLM < 2B parâmetros)...",
+                "🧠 Coletando dataset sintético para fine-tuning...",
+                "🔥 Treinando camadas de atenção com 512 GPUs distribuídas...",
+                "📈 Validando modelo - Acurácia: 94.7% | Perda: 0.023",
+                "🔧 Otimizando hiperparâmetros para sua tarefa específica...",
+                "✅ Modelo personalizado 'NEXUS-CUSTOM-' gerado com sucesso!"
+            ];
+            
+            let step = 0;
+            const interval = setInterval(() => {
+                if (step < steps.length) {
+                    const p = document.createElement("p");
+                    p.innerHTML = steps[step];
+                    logDiv.appendChild(p);
+                    logDiv.scrollTop = logDiv.scrollHeight;
+                    progressBar.style.width = ((step + 1) / steps.length * 100) + "%";
+                    step++;
+                } else {
+                    clearInterval(interval);
+                    const success = document.createElement("p");
+                    success.style.color = "var(--success)";
+                    success.innerHTML = "🎉 Treinamento concluído! Modelo pronto para uso.";
+                    logDiv.appendChild(success);
+                    progressBar.style.width = "100%";
+                    setTimeout(() => {
+                        modal.remove();
+                        if (onComplete) onComplete();
+                    }, 1500);
+                }
+            }, 800);
+        }
+        
+        async function spendTokens(amount, description) {
+            if (userTokens >= amount) {
+                userTokens -= amount;
+                await db.setItem(`tokens_${currentUser}`, userTokens);
+                document.getElementById("tokenAmount").innerText = formatNumber(userTokens);
+                modelUsageHistory.unshift({ date: new Date().toISOString(), amount, description, balance: userTokens });
+                await db.setItem(`history_${currentUser}`, modelUsageHistory.slice(0, 50));
+                return true;
+            }
+            alert("❌ Tokens insuficientes!");
+            return false;
+        }
+        
         async function submitCustomModel() {
-            const textarea = document.getElementById("customModelDesc") || document.getElementById("customModelDesc2");
-            if (!textarea || !textarea.value.trim()) { showErrorModal("Descreva sua tarefa antes de solicitar."); return; }
+            const textarea = document.getElementById("customModelDesc");
+            if (!textarea || !textarea.value.trim()) {
+                alert("Descreva sua tarefa antes de solicitar.");
+                return;
+            }
             const promptText = textarea.value.trim();
+            
+            // Primeiro verifica tokens
             if (!await spendTokens(2500, `Custom model request: ${promptText.substring(0, 50)}...`)) return;
-            await simulateCustomTraining(promptText);
-            showSuccessModal(t("customRequestSent"));
-            textarea.value = "";
+            
+            // Mostra simulação de treinamento
+            showTrainingSimulation(promptText, () => {
+                alert("✅ Solicitação enviada! Nossa equipe entrará em contato com seu modelo personalizado.");
+                textarea.value = "";
+                renderFullUI();
+            });
+        }
+        
+        async function deployModel(model) {
+            if (await spendTokens(model.cost, `Deploy: ${model.name}`)) {
+                deployedModels.push({ ...model, deployedAt: new Date().toISOString() });
+                await db.setItem(`deployed_${currentUser}`, deployedModels);
+                alert(`✅ Modelo ${model.name} implantado com sucesso!`);
+                renderFullUI();
+            }
+        }
+        
+        async function removeModel(modelId) {
+            deployedModels = deployedModels.filter(m => m.id !== modelId);
+            await db.setItem(`deployed_${currentUser}`, deployedModels);
             renderFullUI();
         }
         
-        async function deployModel(model) { if (await spendTokens(model.cost, `Deploy: ${model.name}`)) { deployedModels.push({ ...model, deployedAt: new Date().toISOString() }); await db.setItem(`deployed_${currentUser}`, deployedModels); showSuccessModal(`${t("deployedAlert")} ${model.name}`); renderFullUI(); showView('deployed'); } }
-        async function removeModel(id) { deployedModels = deployedModels.filter(m => m.id !== id); await db.setItem(`deployed_${currentUser}`, deployedModels); renderFullUI(); showView('deployed'); }
-        async function loadFromDB() { const t = await db.getItem(`tokens_${currentUser}`); if(t) userTokens = t; const d = await db.getItem(`deployed_${currentUser}`); if(d) deployedModels = d; const h = await db.getItem(`history_${currentUser}`); if(h) modelUsageHistory = h; document.getElementById("tokenAmount").innerText = formatNumber(userTokens); }
+        async function loadFromDB() {
+            const t = await db.getItem(`tokens_${currentUser}`);
+            if (t) userTokens = t;
+            const d = await db.getItem(`deployed_${currentUser}`);
+            if (d) deployedModels = d;
+            const h = await db.getItem(`history_${currentUser}`);
+            if (h) modelUsageHistory = h;
+            document.getElementById("tokenAmount").innerText = formatNumber(userTokens);
+        }
         
-        function renderFullUI() { /* render similar to original but simplified for brevity, preserving simulation hooks */ 
-            const container = document.getElementById("appContainer");
-            if(!container) return;
-            container.innerHTML = `<div id="actionModal" class="modal" onclick="if(event.target===this) closeModal('actionModal')"><div class="modal-content"><button class="modal-close" onclick="closeModal('actionModal')">✕</button><div class="modal-title" id="modalTitle"></div><div class="modal-body" id="modalBody"></div><div class="modal-buttons"><button class="btn-secondary" id="modalCancelBtn" style="display:none"></button><button class="btn-primary" id="modalConfirmBtn"></button></div></div></div><div id="successModal" class="modal" onclick="if(event.target===this) closeModal('successModal')"><div class="modal-content"><button class="modal-close" onclick="closeModal('successModal')">✕</button><div class="modal-title" id="successModalTitle"></div><div class="modal-body" id="successModalBody"></div><button class="btn-primary" id="successModalClose">OK</button></div></div><div id="errorModal" class="modal" onclick="if(event.target===this) closeModal('errorModal')"><div class="modal-content"><button class="modal-close" onclick="closeModal('errorModal')">✕</button><div class="modal-title" id="errorModalTitle"></div><div class="modal-body" id="errorModalBody"></div><button class="btn-primary" id="errorModalClose">OK</button></div></div><div id="browseView"><div class="hero"><h1>${t("heroTitle")}</h1><p>${t("heroDesc")}</p><div class="hero-stats"><div class="hero-stat"><div class="hero-stat-number">${modelCatalog.length}</div><div class="hero-stat-label">MODELS AVAILABLE</div></div></div><div class="free-badge">${t("freeBadge")}</div></div><div class="section-title"><i class="fas fa-store"></i> ${t("browseTitle")}</div><div class="models-grid" id="modelsGrid"></div><div class="custom-section"><h3>${t("customTitle")}</h3><p>${t("customDesc")}</p><textarea id="customModelDesc" class="custom-textarea" placeholder="${t("customPlaceholder")}"></textarea><button id="submitCustomBtn" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">${t("customBtn")}</button></div></div><div id="customView" style="display:none;"><div class="custom-section"><h3>${t("customTitle")}</h3><p>${t("customDesc")}</p><textarea id="customModelDesc2" class="custom-textarea" placeholder="${t("customPlaceholder")}"></textarea><button id="submitCustomBtn2" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">${t("customBtn")}</button></div></div><div id="deployedView" style="display:none;"><div class="section-title"><i class="fas fa-rocket"></i> ${t("deployedTitle")}</div><div id="deployedList" class="models-grid"></div></div><div id="dashboardView" style="display:none;"><div class="stats-row"><div class="stat-card"><div class="stat-number neon">${formatNumber(userTokens)}</div><div class="stat-label-sm">${t("tokensAvailable").toUpperCase()}</div></div><div class="stat-card"><div class="stat-number">${deployedModels.length}</div><div class="stat-label-sm">${t("activeModels")}</div></div></div><div class="panel"><div class="panel-title"><i class="fas fa-history"></i> ${t("recentActivity")}</div><div id="recentActivity" class="transactions-list"></div></div></div><div id="tokensView" style="display:none;"><div class="panel"><div class="panel-title"><i class="fas fa-coins"></i> ${t("myTokens")}</div><div style="text-align:center; padding:1rem;"><div style="font-size:2.5rem;">${formatNumber(userTokens)}</div><div>${t("tokensAvailable")}</div></div></div><div class="panel"><div class="panel-title"><i class="fas fa-history"></i> ${t("usageHistory")}</div><div id="tokenHistoryList" class="transactions-list"></div></div></div>`;
+        function renderFullUI() {
+            document.getElementById("appContainer").innerHTML = `
+                <div id="browseView">
+                    <div class="hero">
+                        <h1>Small Models, Big Impact</h1>
+                        <p>Descubra SLMs prontos para tarefas específicas do seu negócio.</p>
+                        <div class="hero-stats">
+                            <div class="hero-stat"><div class="hero-stat-number">${modelCatalog.length}</div><div class="hero-stat-label">MODELS</div></div>
+                            <div class="hero-stat"><div class="hero-stat-number">FREE</div><div class="hero-stat-label">TO BROWSE</div></div>
+                        </div>
+                        <div class="free-badge">✨ Navegação gratuita — Pague apenas pela inferência</div>
+                    </div>
+                    <div class="section-title"><i class="fas fa-store"></i> Browse Models</div>
+                    <div class="models-grid" id="modelsGrid"></div>
+                    
+                    <div class="custom-section">
+                        <h3>Need a Custom Model?</h3>
+                        <p>Descreva sua tarefa em linguagem natural e nós construiremos um SLM sob medida para você.</p>
+                        <textarea id="customModelDesc" class="custom-textarea" placeholder="Descreva sua tarefa de IA. Ex: 'Preciso de um modelo que preveja movimentos de ações'"></textarea>
+                        <button id="submitCustomBtn" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">🤖 Solicitar Modelo Personalizado (2.500 tokens)</button>
+                    </div>
+                </div>
+                
+                <div id="customView" style="display:none;">
+                    <div class="custom-section">
+                        <h3>Need a Custom Model?</h3>
+                        <p>Descreva sua tarefa em linguagem natural e nós construiremos um SLM sob medida para você.</p>
+                        <textarea id="customModelDesc2" class="custom-textarea" placeholder="Descreva sua tarefa de IA..."></textarea>
+                        <button id="submitCustomBtn2" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">🤖 Solicitar Modelo Personalizado (2.500 tokens)</button>
+                    </div>
+                </div>
+                
+                <div id="deployedView" style="display:none;">
+                    <div class="section-title"><i class="fas fa-rocket"></i> Meus Modelos Implantados</div>
+                    <div id="deployedList" class="models-grid"></div>
+                </div>
+                
+                <div id="dashboardView" style="display:none;">
+                    <div class="stats-row">
+                        <div class="stat-card"><div class="stat-number neon">${formatNumber(userTokens)}</div><div class="stat-label-sm">TOKENS DISPONÍVEIS</div></div>
+                        <div class="stat-card"><div class="stat-number">${deployedModels.length}</div><div class="stat-label-sm">MODELOS ATIVOS</div></div>
+                        <div class="stat-card"><div class="stat-number">${modelUsageHistory.length}</div><div class="stat-label-sm">TRANSAÇÕES</div></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-history"></i> Atividade Recente</div>
+                        <div id="recentActivity" class="transactions-list"></div>
+                    </div>
+                </div>
+                
+                <div id="tokensView" style="display:none;">
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-coins"></i> Meus Tokens</div>
+                        <div style="text-align:center; padding:1rem;">
+                            <div style="font-size:2.5rem; font-family:monospace; color:var(--primary);">${formatNumber(userTokens)}</div>
+                            <div>tokens disponíveis</div>
+                            <div class="token-badge" style="display:inline-block;"><i class="fas fa-gift"></i> Plano 0 - 100M tokens gratuitos</div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-history"></i> Histórico de Consumo</div>
+                        <div id="tokenHistoryList" class="transactions-list"></div>
+                    </div>
+                </div>
+            `;
+            
+            // Models grid
             const grid = document.getElementById("modelsGrid");
-            if(grid) grid.innerHTML = modelCatalog.slice(0,24).map(m => `<div class="model-card" onclick="window.showModelDetail('${m.id}')"><div class="model-name">${m.name}</div><div class="model-type">${m.type}</div><div class="model-desc">${m.desc}</div><div class="model-meta"><span class="model-params">${m.params}</span><span class="model-cost">${formatNumber(m.cost)} tokens</span><button class="deploy-btn" data-model-id="${m.id}">${t("deployBtn")}</button></div></div>`).join("");
-            document.querySelectorAll(".deploy-btn").forEach(btn => btn.addEventListener("click", (e) => { e.stopPropagation(); const m = modelCatalog.find(m => m.id === btn.dataset.modelId); if(m) showModal(t("modalConfirmTitle"), `${t("modalConfirmDesc")}<br><strong>${m.name}</strong>`, () => deployModel(m), true); }));
+            if (grid) {
+                grid.innerHTML = modelCatalog.slice(0, 24).map(m => `
+                    <div class="model-card">
+                        <div class="model-name">${m.name}</div>
+                        <div class="model-type">${m.type} • ${m.category}</div>
+                        <div class="model-desc">${m.desc}</div>
+                        <div class="model-meta">
+                            <span class="model-params"><i class="fas fa-microchip"></i> ${m.params}</span>
+                            <span class="model-cost"><i class="fas fa-coins"></i> ${formatNumber(m.cost)} tokens</span>
+                            <button class="deploy-btn" data-model-id="${m.id}">Implantar</button>
+                        </div>
+                    </div>
+                `).join("");
+                
+                document.querySelectorAll(".deploy-btn").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        const model = modelCatalog.find(m => m.id === btn.dataset.modelId);
+                        if (model && confirm(`Confirmar implantação de ${model.name} por ${formatNumber(model.cost)} tokens?`)) {
+                            deployModel(model);
+                        }
+                    });
+                });
+            }
+            
+            // Deployed list
+            const deployedList = document.getElementById("deployedList");
+            if (deployedList) {
+                if (deployedModels.length === 0) {
+                    deployedList.innerHTML = `<div style='grid-column:1/-1; text-align:center; padding:2rem;'>Nenhum modelo implantado ainda</div>`;
+                } else {
+                    deployedList.innerHTML = deployedModels.map(m => `
+                        <div class="model-card">
+                            <div class="model-name">${m.name}</div>
+                            <div class="model-type">Implantado em: ${new Date(m.deployedAt).toLocaleDateString()}</div>
+                            <div class="model-desc">${m.desc}</div>
+                            <div class="model-meta">
+                                <button class="deploy-btn btn-danger" data-remove-id="${m.id}">Remover</button>
+                            </div>
+                        </div>
+                    `).join("");
+                    document.querySelectorAll("[data-remove-id]").forEach(btn => {
+                        btn.addEventListener("click", (e) => { e.stopPropagation(); removeModel(btn.dataset.removeId); });
+                    });
+                }
+            }
+            
+            // Recent activity
+            const recent = document.getElementById("recentActivity");
+            if (recent) {
+                recent.innerHTML = modelUsageHistory.slice(0, 10).map(h => `
+                    <div class="transaction-item">
+                        <span>${new Date(h.date).toLocaleString()}</span>
+                        <span style="color:var(--warning)">- ${formatNumber(h.amount)} tokens</span>
+                        <span>${h.description}</span>
+                    </div>
+                `).join("");
+            }
+            
+            // Token history
+            const historyList = document.getElementById("tokenHistoryList");
+            if (historyList) {
+                historyList.innerHTML = modelUsageHistory.map(h => `
+                    <div class="transaction-item">
+                        <span>${new Date(h.date).toLocaleString()}</span>
+                        <span style="color:var(--warning)">- ${formatNumber(h.amount)} tokens</span>
+                        <span>${h.description}</span>
+                        <span>Saldo: ${formatNumber(h.balance)}</span>
+                    </div>
+                `).join("");
+            }
+            
             document.getElementById("submitCustomBtn")?.addEventListener("click", submitCustomModel);
             document.getElementById("submitCustomBtn2")?.addEventListener("click", submitCustomModel);
-            const deployedList = document.getElementById("deployedList");
-            if(deployedList) deployedList.innerHTML = deployedModels.length ? deployedModels.map(m => `<div class="model-card"><div class="model-name">${m.name}</div><div class="model-type">${t("deployedAt")}: ${new Date(m.deployedAt).toLocaleDateString()}</div><button class="deploy-btn btn-danger" data-remove-id="${m.id}">${t("removeBtn")}</button></div>`).join("") : `<div style='text-align:center; padding:2rem;'>${t("noModels")}</div>`;
-            document.querySelectorAll("[data-remove-id]").forEach(btn => btn.addEventListener("click", (e) => { e.stopPropagation(); removeModel(btn.dataset.removeId); }));
-            const recent = document.getElementById("recentActivity");
-            if(recent) recent.innerHTML = modelUsageHistory.slice(0,5).map(h => `<div class="transaction-item"><span>${new Date(h.date).toLocaleString()}</span><span>-${formatNumber(h.amount)} tokens</span><span>${h.description}</span></div>`).join("");
-            const hist = document.getElementById("tokenHistoryList");
-            if(hist) hist.innerHTML = modelUsageHistory.map(h => `<div class="transaction-item"><span>${new Date(h.date).toLocaleString()}</span><span>-${formatNumber(h.amount)}</span><span>${h.description}</span></div>`).join("");
         }
-        function showView(view) { ["browseView","customView","deployedView","dashboardView","tokensView"].forEach(v => { const el = document.getElementById(v); if(el) el.style.display = v === `${view}View` ? "block" : "none"; }); }
-        window.showModelDetail = function(id) { const m = modelCatalog.find(m=>m.id===id); if(m) showModal(t("modalInfoTitle"), `<strong>${m.name}</strong><br>${m.longDesc}<br>Custo: ${formatNumber(m.cost)} tokens`, null, false); };
-        function closeMenu() { document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); }
-        document.getElementById("loginBtn")?.addEventListener("click", async () => { const u = document.getElementById("loginUser").value.trim(); if(u) { currentUser = u; document.getElementById("loginContainer").classList.add("hide"); document.getElementById("secondLoading").style.display = "flex"; setTimeout(async () => { document.getElementById("secondLoading").style.display = "none"; document.getElementById("mainApp").classList.add("visible"); document.getElementById("userNameDisplay").innerText = currentUser; await loadFromDB(); renderFullUI(); showView("browse"); }, 1500); } else document.getElementById("loginError").innerText = "Digite um nome"; });
-        document.getElementById("hamburgerBtn")?.addEventListener("click", () => { document.getElementById("sideMenu")?.classList.toggle("open"); document.getElementById("menuOverlay")?.classList.toggle("open"); });
-        document.getElementById("menuOverlay")?.addEventListener("click", closeMenu);
-        document.getElementById("menuBrowse")?.addEventListener("click", () => { showView("browse"); closeMenu(); });
-        document.getElementById("menuCustom")?.addEventListener("click", () => { showView("custom"); closeMenu(); });
-        document.getElementById("menuDashboard")?.addEventListener("click", () => { showView("dashboard"); closeMenu(); });
-        document.getElementById("menuDeployed")?.addEventListener("click", () => { showView("deployed"); closeMenu(); });
-        document.getElementById("menuTokens")?.addEventListener("click", () => { showView("tokens"); closeMenu(); renderFullUI(); });
-        document.getElementById("menuTheme")?.addEventListener("click", () => { document.body.classList.toggle("light-theme"); closeMenu(); });
-        document.getElementById("menuLang")?.addEventListener("click", () => { currentLang = currentLang === "pt" ? "en" : "pt"; updateLanguage(); closeMenu(); });
-        document.getElementById("menuLogout")?.addEventListener("click", () => { document.getElementById("mainApp")?.classList.remove("visible"); document.getElementById("loginContainer")?.classList.remove("hide"); closeMenu(); });
-        function updateLanguage() { const elements = ["loginSubtitle","loginBtnText","loginTokenText","loginHint","bannerText","installBtnText","menuBrowseText","menuCustomText","menuDashboardText","menuDeployedText","menuTokensText","menuThemeText","menuLangText","menuLogoutText","statusText","tokenLabel"]; elements.forEach(id => { const el = document.getElementById(id); if(el && texts[currentLang][id]) el.innerText = texts[currentLang][id]; }); renderFullUI(); }
-        window.closeModal = closeModal;
-        document.getElementById("closeBannerBtn")?.addEventListener("click", () => document.getElementById("pwaBanner")?.classList.add("hide-banner"));
-        window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredPrompt = e; });
-        document.getElementById("installAppBtn")?.addEventListener("click", () => { if(deferredPrompt) deferredPrompt.prompt(); else alert("Instale pelo navegador."); });
+        
+        function showView(view) {
+            const views = ["browseView", "customView", "deployedView", "dashboardView", "tokensView"];
+            views.forEach(v => {
+                const el = document.getElementById(v);
+                if (el) el.style.display = v === `${view}View` ? "block" : "none";
+            });
+        }
+        
+        // Login
+        document.getElementById("loginBtn")?.addEventListener("click", async () => {
+            const username = document.getElementById("loginUser").value.trim();
+            if (username) {
+                currentUser = username;
+                document.getElementById("loginContainer").classList.add("hide");
+                document.getElementById("mainApp").classList.add("visible");
+                document.getElementById("userNameDisplay").innerText = currentUser;
+                await loadFromDB();
+                renderFullUI();
+                showView("browse");
+            } else {
+                document.getElementById("loginError").innerText = "Digite um nome de usuário";
+            }
+        });
+        
+        // Menu
+        document.getElementById("hamburgerBtn")?.addEventListener("click", () => {
+            document.getElementById("sideMenu")?.classList.toggle("open");
+            document.getElementById("menuOverlay")?.classList.toggle("open");
+        });
+        document.getElementById("menuOverlay")?.addEventListener("click", () => {
+            document.getElementById("sideMenu")?.classList.remove("open");
+            document.getElementById("menuOverlay")?.classList.remove("open");
+        });
+        document.getElementById("menuBrowse")?.addEventListener("click", () => { showView("browse"); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuCustom")?.addEventListener("click", () => { showView("custom"); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuDashboard")?.addEventListener("click", () => { showView("dashboard"); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuDeployed")?.addEventListener("click", () => { showView("deployed"); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuTokens")?.addEventListener("click", () => { showView("tokens"); renderFullUI(); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuTheme")?.addEventListener("click", () => { document.body.classList.toggle("light-theme"); document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); });
+        document.getElementById("menuLogout")?.addEventListener("click", () => { document.getElementById("mainApp")?.classList.remove("visible"); document.getElementById("loginContainer")?.classList.remove("hide"); document.getElementById("sideMenu")?.classList.remove("open"); });
     })();
 </script>
 </body>
