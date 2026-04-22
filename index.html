@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#050509">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="data:application/manifest+json,{
+      %22name%22:%22NEXUS%20AI%20Marketplace%22,
+      %22short_name%22:%22NEXUS%20AI%22,
+      %22start_url%22:%22.%22,
+      %22display%22:%22standalone%22,
+      %22background_color%22:%22%23050509%22,
+      %22theme_color%22:%22%2300f2ff%22,
+      %22icons%22:[
+        {%22src%22:%22https://cdn-icons-png.flaticon.com/512/1061/1061146.png%22,%22sizes%22:%22192x192%22},
+        {%22src%22:%22https://cdn-icons-png.flaticon.com/512/1061/1061146.png%22,%22sizes%22:%22512x512%22}
+      ]
+    }">
+    <title>NEXUS // AI Model Marketplace - 128+ SLMs | 100M Tokens Grátis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #050509;
+            --bg-card: #0a0b14;
+            --bg-elevated: #0f101a;
+            --primary: #00f2ff;
+            --primary-dim: rgba(0, 242, 255, 0.08);
+            --secondary: #bc00ff;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff3355;
+            --text-main: #eef2ff;
+            --text-muted: #8e9aaf;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --transition: all 0.2s ease;
+        }
+        body.light-theme {
+            --bg-dark: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-elevated: #f8f9fa;
+            --primary: #0066cc;
+            --secondary: #9900cc;
+            --success: #00a86b;
+            --warning: #ff8c00;
+            --danger: #dc3545;
+            --text-main: #1a1a2e;
+            --text-muted: #555555;
+            --border-subtle: rgba(0, 0, 0, 0.08);
+        }
+        body { background: var(--bg-dark); color: var(--text-main); font-family: var(--font-sans); line-height: 1.5; min-height: 100vh; transition: var(--transition); }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        .neon { color: var(--primary); }
+        
+        /* Hero Section */
+        .hero { text-align: center; padding: 3rem 0 2rem 0; }
+        .hero h1 { font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem auto; }
+        .hero-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .hero-stat { text-align: center; }
+        .hero-stat-number { font-size: 2.2rem; font-weight: 700; font-family: var(--font-mono); color: var(--primary); }
+        .hero-stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .free-badge { display: inline-block; background: var(--primary-dim); border: 1px solid var(--primary); color: var(--primary); padding: 0.3rem 1rem; border-radius: 30px; font-size: 0.7rem; font-weight: 600; margin-top: 1rem; }
+        
+        /* Custom Model Section */
+        .custom-section { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 2rem; text-align: center; margin: 2rem 0; }
+        .custom-section h3 { font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .custom-section p { font-size: 0.85rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem auto; }
+        .custom-textarea { width: 100%; max-width: 600px; margin: 0 auto 1rem auto; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 0.8rem; color: var(--text-main); font-family: var(--font-mono); font-size: 0.8rem; resize: vertical; min-height: 80px; display: block; }
+        .custom-textarea:focus { outline: none; border-color: var(--primary); }
+        
+        /* Models Grid */
+        .section-title { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 1rem; }
+        .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0 2rem 0; }
+        .model-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1rem; transition: all 0.2s; cursor: pointer; }
+        .model-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .model-name { font-size: 0.95rem; font-weight: 700; font-family: var(--font-mono); margin-bottom: 0.2rem; }
+        .model-type { font-size: 0.6rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .model-desc { font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4; }
+        .model-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; font-size: 0.65rem; }
+        .model-params { background: var(--bg-elevated); padding: 0.2rem 0.5rem; border-radius: 12px; font-family: var(--font-mono); }
+        .model-cost { color: var(--warning); font-weight: 600; }
+        .deploy-btn { background: var(--primary-dim); border: 1px solid var(--primary); padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.65rem; cursor: pointer; transition: 0.2s; color: var(--primary); font-family: var(--font-mono); }
+        .deploy-btn:hover { background: var(--primary); color: #000; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--primary); border-radius: 20px; max-width: 480px; width: 90%; padding: 1.5rem; position: relative; }
+        .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
+        .modal-title { font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary); }
+        .modal-body { font-size: 0.85rem; color: var(--text-muted); margin: 1rem 0; line-height: 1.5; }
+        .modal-detail { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.8rem; }
+        
+        /* Dashboard */
+        .panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem; }
+        .panel-title { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .stat-card { flex: 1; min-width: 100px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 0.8rem; text-align: center; }
+        .stat-number { font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); }
+        .stat-label-sm { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
+        .transactions-list { max-height: 300px; overflow-y: auto; }
+        .transaction-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.7rem; flex-wrap: wrap; gap: 0.5rem; }
+        .token-badge { background: linear-gradient(135deg, #00f2ff10, #bc00ff10); border: 1px solid var(--primary); border-radius: 20px; padding: 0.5rem; font-family: var(--font-mono); font-size: 0.7rem; text-align: center; margin-top: 1rem; }
+        
+        /* Buttons */
+        .btn-primary { background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; font-weight: 600; cursor: pointer; color: white; padding: 0.6rem 1.2rem; border-radius: 10px; transition: opacity 0.2s; font-family: var(--font-mono); font-size: 0.8rem; width: 100%; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: transparent; border: 1px solid var(--primary); cursor: pointer; padding: 0.5rem 1rem; border-radius: 10px; color: var(--primary); transition: all 0.2s; font-family: var(--font-mono); font-size: 0.75rem; }
+        .btn-secondary:hover { background: var(--primary-dim); }
+        
+        /* Loading, Login, Header, Menu */
+        .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .loading-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .glitch-text { font-family: var(--font-mono); font-size: 1.8rem; color: var(--primary); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loader { width: 40px; height: 40px; border: 2px solid var(--border-subtle); border-top: 2px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-top: 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .pwa-banner { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(135deg, #00f2ff, #bc00ff); color: #000; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1100; font-family: var(--font-mono); font-weight: 600; flex-wrap: wrap; gap: 10px; font-size: 0.75rem; }
+        .pwa-banner.hide-banner { display: none !important; }
+        .install-btn { background: #000; color: #00f2ff; border: none; padding: 4px 12px; border-radius: 30px; font-weight: bold; cursor: pointer; font-family: var(--font-mono); font-size: 0.7rem; }
+        .close-banner { background: rgba(0,0,0,0.3); color: #000; font-size: 1rem; cursor: pointer; padding: 2px 8px; border: none; border-radius: 50%; }
+        
+        .login-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, #0a0b14 0%, #050509 100%); z-index: 1500; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        body.light-theme .login-container { background: radial-gradient(ellipse at center, #e0e0e0 0%, #cccccc 100%); }
+        .login-container.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .login-box { background: var(--bg-card); border: 1px solid var(--primary); border-radius: 20px; padding: 1.5rem; width: 90%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.15); }
+        .login-box h2 { font-family: var(--font-mono); color: var(--primary); text-align: center; margin-bottom: 0.3rem; font-size: 1.1rem; }
+        .login-subtitle { text-align: center; color: var(--text-muted); font-size: 0.7rem; margin-bottom: 1.2rem; }
+        .login-input { width: 100%; background: var(--bg-elevated); border: 1px solid var(--border-subtle); padding: 0.7rem; border-radius: 10px; color: var(--text-main); margin-bottom: 0.8rem; font-family: var(--font-mono); font-size: 0.8rem; }
+        .login-input:focus { outline: none; border-color: var(--primary); }
+        .login-btn { width: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; padding: 0.7rem; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; font-family: var(--font-mono); font-size: 0.85rem; }
+        .login-error { color: var(--danger); font-size: 0.75rem; text-align: center; margin-top: 0.8rem; }
+        
+        .main-app { display: none; }
+        .main-app.visible { display: block; }
+        .header { position: sticky; top: 0; background: rgba(5, 5, 9, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle); padding: 0.6rem 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; }
+        .logo { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--primary); cursor: pointer; }
+        .user-info { display: flex; align-items: center; gap: 0.8rem; font-family: var(--font-mono); font-size: 0.7rem; flex-wrap: wrap; }
+        .status-badge { background: var(--success); color: #000; padding: 0.15rem 0.5rem; border-radius: 20px; font-size: 0.6rem; font-weight: 600; }
+        .token-display { background: var(--bg-elevated); border-radius: 20px; padding: 0.15rem 0.6rem; font-family: var(--font-mono); font-size: 0.7rem; border: 1px solid var(--primary); }
+        .hamburger { display: flex; flex-direction: column; gap: 3px; background: none; border: none; cursor: pointer; z-index: 200; }
+        .hamburger span { width: 18px; height: 2px; background: var(--primary); transition: 0.3s; }
+        .side-menu { position: fixed; top: 0; left: -260px; width: 260px; height: 100vh; background: var(--bg-card); border-right: 1px solid var(--border-subtle); z-index: 300; transition: left 0.3s ease; padding: 4rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.3rem; overflow-y: auto; }
+        .side-menu.open { left: 0; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 299; display: none; }
+        .menu-overlay.open { display: block; }
+        .menu-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem; border-radius: 8px; cursor: pointer; font-family: var(--font-mono); font-size: 0.8rem; transition: 0.2s; }
+        .menu-item:hover { background: var(--primary-dim); }
+        .menu-item i { width: 22px; color: var(--primary); }
+        
+        @media (max-width: 640px) {
+            .container { padding: 0 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-stats { gap: 1rem; }
+            .hero-stat-number { font-size: 1.5rem; }
+            .models-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+    <div class="glitch-text">NEXUS//AI MARKETPLACE</div>
+    <div class="loader"></div>
+    <p style="margin-top: 0.8rem; font-family: monospace; color: var(--text-muted); font-size: 0.8rem;" id="loadingText">Carregando 128+ modelos SLM...</p>
+</div>
+
+<div class="login-container" id="loginContainer">
+    <div class="login-box">
+        <h2><i class="fas fa-brain"></i> NEXUS AI MARKETPLACE</h2>
+        <div class="login-subtitle" id="loginSubtitle">Small Language Models for Business</div>
+        <input type="text" id="loginUser" class="login-input" placeholder="Usuário" value="nexus_user">
+        <input type="password" id="loginPass" class="login-input" placeholder="Senha" value="nexus2026">
+        <button class="login-btn" id="loginBtn"><i class="fas fa-gem"></i> <span id="loginBtnText">CRIAR CONTA • 100M TOKENS GRÁTIS</span></button>
+        <div id="loginError" class="login-error"></div>
+        <div class="token-badge" id="loginTokenBadge">
+            <i class="fas fa-coins"></i> <span id="loginTokenText">PLANO 0 • 100 MILHÕES DE TOKENS GRÁTIS NO CADASTRO</span>
+        </div>
+        <p style="text-align: center; margin-top: 0.8rem; font-size: 0.6rem; color: var(--text-muted);" id="loginHint">🔬 Qualquer usuário/senha cria conta com 100M tokens</p>
+    </div>
+</div>
+
+<div class="main-app" id="mainApp">
+    <div id="pwaBanner" class="pwa-banner">
+        <div><i class="fas fa-mobile-alt"></i> <span id="bannerText">INSTALE O NEXUS AI MARKETPLACE • 128+ modelos</span></div>
+        <div><button id="installAppBtn" class="install-btn"><span id="installBtnText">INSTALAR</span></button><button id="closeBannerBtn" class="close-banner">✕</button></div>
+    </div>
+
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-item" id="menuBrowse"><i class="fas fa-store"></i> <span id="menuBrowseText">Browse Models</span></div>
+        <div class="menu-item" id="menuCustom"><i class="fas fa-microchip"></i> <span id="menuCustomText">Custom Model</span></div>
+        <div class="menu-item" id="menuDashboard"><i class="fas fa-chart-line"></i> <span id="menuDashboardText">Dashboard</span></div>
+        <div class="menu-item" id="menuDeployed"><i class="fas fa-rocket"></i> <span id="menuDeployedText">Deployed</span></div>
+        <div class="menu-item" id="menuTokens"><i class="fas fa-coins"></i> <span id="menuTokensText">Tokens</span></div>
+        <div class="menu-item" id="menuTheme"><i class="fas fa-moon"></i> <span id="menuThemeText">Tema Claro/Escuro</span></div>
+        <div class="menu-item" id="menuLang"><i class="fas fa-language"></i> <span id="menuLangText">Idioma: Português</span></div>
+        <div class="menu-item" id="menuLogout"><i class="fas fa-sign-out-alt"></i> <span id="menuLogoutText">Sair</span></div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
+                    <div class="logo"><i class="fas fa-brain"></i> NEXUS // AI MARKETPLACE</div>
+                </div>
+                <div class="user-info">
+                    <span><i class="fas fa-user-astronaut"></i> <span id="userNameDisplay">User</span></span>
+                    <span class="status-badge"><i class="fas fa-circle" style="font-size: 0.35rem;"></i> <span id="statusText">LIVE</span></span>
+                    <span class="token-display" id="tokenDisplay"><i class="fas fa-coins"></i> <span id="tokenAmount">100,000,000</span> <span id="tokenLabel">tokens</span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container" id="appContainer"></div>
+    </main>
+</div>
+
+<script>
+    (function() {
+        // ============================================
+        // CONFIGURAÇÃO INICIAL
+        // ============================================
+        const db = localforage.createInstance({ name: "NexusMarketplace", storeName: "user_data" });
+        let userTokens = 100000000;
+        let currentUser = null;
+        let deployedModels = [];
+        let modelUsageHistory = [];
+        let deferredPrompt = null;
+        let currentLang = "pt";
+        
+        // ============================================
+        // CATÁLOGO DE MODELOS (128+)
+        // ============================================
+        const modelCatalog = [
+            { id: "finance-predict", name: "FinancePredict SLM", type: "Task SLM", params: "1.2B", desc: "Previsão de tendências de mercado e análise financeira", task: "finance", cost: 1000, category: "Finance" },
+            { id: "sentiment-trader", name: "SentimentTrader", type: "Task SLM", params: "890M", desc: "Análise de sentimento de mercado de notícias e redes sociais", task: "sentiment", cost: 800, category: "Finance" },
+            { id: "risk-analyzer", name: "RiskAnalyzer", type: "General <20B", params: "7B", desc: "Avaliação de risco de portfólio e previsão de volatilidade", task: "risk", cost: 2500, category: "Risk" },
+            { id: "earnings-forecast", name: "EarningsForecaster", type: "Task SLM", params: "450M", desc: "Previsão de lucros trimestrais para ações", task: "earnings", cost: 600, category: "Finance" },
+            { id: "crypto-signal", name: "CryptoSignal AI", type: "General <20B", params: "13B", desc: "Previsão de movimento de preços de criptomoedas", task: "crypto", cost: 3000, category: "Crypto" },
+            { id: "fraud-detection", name: "FraudDetector", type: "Task SLM", params: "680M", desc: "Detecção de fraudes em transações em tempo real", task: "fraud", cost: 1200, category: "Security" },
+            { id: "portfolio-optim", name: "PortfolioOptimizer", type: "Task SLM", params: "520M", desc: "Alocação de ativos e otimização de portfólio", task: "portfolio", cost: 900, category: "Finance" },
+            { id: "options-pricing", name: "OptionsPricer", type: "Task SLM", params: "350M", desc: "Precificação de opções e cálculo de gregas", task: "options", cost: 700, category: "Finance" },
+            { id: "macro-indicator", name: "MacroIndicator", type: "Task SLM", params: "280M", desc: "Análise de indicadores econômicos e previsões", task: "macro", cost: 550, category: "Economics" },
+            { id: "credit-scoring", name: "CreditScorer", type: "Task SLM", params: "620M", desc: "Score de crédito e previsão de inadimplência", task: "credit", cost: 1100, category: "Finance" },
+            { id: "market-micro", name: "MarketMicrostructure", type: "General <20B", params: "4.2B", desc: "Análise de fluxo de ordens e microestrutura de mercado", task: "trading", cost: 1800, category: "Trading" },
+            { id: "backtest-engine", name: "BacktestEngine", type: "Task SLM", params: "310M", desc: "Backtesting e validação de estratégias de trading", task: "backtest", cost: 750, category: "Trading" }
+        ];
+        
+        // Gerar modelos adicionais até 128
+        const categories = ["Finance", "Trading", "Crypto", "Risk", "Economics", "Security", "Quant", "NLP"];
+        const types = ["Task SLM", "General <20B"];
+        for (let i = modelCatalog.length + 1; i <= 128; i++) {
+            modelCatalog.push({
+                id: `model-${i}`, 
+                name: `SLM-${Math.floor(Math.random() * 9000 + 1000)}`, 
+                type: types[Math.floor(Math.random() * types.length)], 
+                params: `${(Math.random() * 15 + 0.1).toFixed(1)}B`, 
+                desc: `Modelo especializado para ${categories[Math.floor(Math.random() * categories.length)]} - análise preditiva e otimização`, 
+                task: "general", 
+                cost: Math.floor(Math.random() * 3000) + 300, 
+                category: categories[Math.floor(Math.random() * categories.length)]
+            });
+        }
+        
+        // ============================================
+        // TEXTOS E TRADUÇÕES (PT/EN)
+        // ============================================
+        const texts = {
+            pt: {
+                loading: "Carregando 128+ modelos SLM...",
+                loginSubtitle: "Small Language Models for Business",
+                loginBtnText: "CRIAR CONTA • 100M TOKENS GRÁTIS",
+                loginTokenText: "PLANO 0 • 100 MILHÕES DE TOKENS GRÁTIS NO CADASTRO",
+                loginHint: "🔬 Qualquer usuário/senha cria conta com 100M tokens",
+                bannerText: "INSTALE O NEXUS AI MARKETPLACE • 128+ modelos",
+                installBtnText: "INSTALAR",
+                menuBrowse: "Browse Models",
+                menuCustom: "Custom Model",
+                menuDashboard: "Dashboard",
+                menuDeployed: "Deployed",
+                menuTokens: "Tokens",
+                menuTheme: "Tema Claro/Escuro",
+                menuLang: "Idioma: Português",
+                menuLogout: "Sair",
+                statusText: "LIVE",
+                tokenLabel: "tokens",
+                heroTitle: "Small Models, Big Impact",
+                heroDesc: "Descubra SLMs prontos para tarefas específicas do seu negócio, ou navegue por modelos gerais com menos de 20B parâmetros. Precisa de algo personalizado? Conte-nos e nós construímos.",
+                freeBadge: "✨ Navegação gratuita — Pague apenas pela inferência",
+                browseTitle: "Browse Models",
+                customTitle: "Need a Custom Model?",
+                customDesc: "Descreva sua tarefa em linguagem natural e nós construiremos um Small Language Model sob medida para suas necessidades. Nenhum conhecimento em ML é necessário.",
+                customPlaceholder: "Descreva sua tarefa de IA em linguagem natural. Ex: 'Preciso de um modelo que preveja movimentos de preços de ações a partir de transcrições de teleconferências de resultados'",
+                customBtn: "Solicitar Modelo Personalizado (2.500 tokens)",
+                deployedTitle: "Meus Modelos Implantados",
+                noModels: "Nenhum modelo implantado ainda",
+                tokensAvailable: "tokens disponíveis",
+                tokenWarning: "Plano 0 - 100M tokens gratuitos",
+                noUsage: "Nenhum consumo registrado",
+                noActivity: "Nenhuma atividade recente",
+                deployedAt: "Implantado em",
+                removeBtn: "Remover",
+                deployBtn: "Implantar",
+                modalDeploy: "Implantar Modelo",
+                insufficientTokens: "❌ Tokens insuficientes! Recarregue seu plano.",
+                deployedAlert: "✅ Modelo implantado com sucesso!",
+                customRequestSent: "✅ Solicitação enviada! Nossa equipe entrará em contato.",
+                recentActivity: "Atividade Recente",
+                myTokens: "Meus Tokens",
+                usageHistory: "Histórico de Consumo",
+                dashboardTitle: "Dashboard",
+                activeModels: "MODELOS ATIVOS",
+                transactions: "TRANSAÇÕES"
+            },
+            en: {
+                loading: "Loading 128+ SLM models...",
+                loginSubtitle: "Small Language Models for Business",
+                loginBtnText: "CREATE ACCOUNT • 100M FREE TOKENS",
+                loginTokenText: "PLAN 0 • 100M FREE TOKENS ON SIGNUP",
+                loginHint: "🔬 Any username/password creates account with 100M tokens",
+                bannerText: "INSTALL NEXUS AI MARKETPLACE • 128+ models",
+                installBtnText: "INSTALL",
+                menuBrowse: "Browse Models",
+                menuCustom: "Custom Model",
+                menuDashboard: "Dashboard",
+                menuDeployed: "Deployed",
+                menuTokens: "Tokens",
+                menuTheme: "Light/Dark Theme",
+                menuLang: "Language: English",
+                menuLogout: "Logout",
+                statusText: "LIVE",
+                tokenLabel: "tokens",
+                heroTitle: "Small Models, Big Impact",
+                heroDesc: "Discover task-specific SLMs ready for your business, or browse general models under 20B parameters. Need something custom? Tell us and we'll build it.",
+                freeBadge: "✨ Free to browse — Pay only for inference",
+                browseTitle: "Browse Models",
+                customTitle: "Need a Custom Model?",
+                customDesc: "Describe your task in plain language and we'll build a Small Language Model tailored to your specific needs. No ML expertise required.",
+                customPlaceholder: "Describe your AI task in plain language. Ex: 'I need a model that predicts stock price movements from earnings call transcripts'",
+                customBtn: "Request Custom Model (2,500 tokens)",
+                deployedTitle: "My Deployed Models",
+                noModels: "No deployed models yet",
+                tokensAvailable: "tokens available",
+                tokenWarning: "Plan 0 - 100M free tokens",
+                noUsage: "No usage recorded",
+                noActivity: "No recent activity",
+                deployedAt: "Deployed on",
+                removeBtn: "Remove",
+                deployBtn: "Deploy",
+                modalDeploy: "Deploy Model",
+                insufficientTokens: "❌ Insufficient tokens! Please upgrade your plan.",
+                deployedAlert: "✅ Model deployed successfully!",
+                customRequestSent: "✅ Request sent! Our team will contact you.",
+                recentActivity: "Recent Activity",
+                myTokens: "My Tokens",
+                usageHistory: "Usage History",
+                dashboardTitle: "Dashboard",
+                activeModels: "ACTIVE MODELS",
+                transactions: "TRANSACTIONS"
+            }
+        };
+        
+        function t(key) { return texts[currentLang][key] || key; }
+        function formatNumber(n) { return n.toLocaleString(currentLang === 'pt' ? 'pt-BR' : 'en-US'); }
+        
+        // ============================================
+        // FUNÇÕES DE PERSISTÊNCIA E TOKENS
+        // ============================================
+        async function updateTokenDisplay() {
+            const span = document.getElementById("tokenAmount");
+            if (span) span.innerText = formatNumber(userTokens);
+            await db.setItem(`tokens_${currentUser}`, userTokens);
+        }
+        
+        async function spendTokens(amount, description) {
+            if (userTokens >= amount) {
+                userTokens -= amount;
+                await updateTokenDisplay();
+                modelUsageHistory.unshift({ date: new Date().toISOString(), amount, description, balance: userTokens });
+                await db.setItem(`history_${currentUser}`, modelUsageHistory.slice(0, 50));
+                return true;
+            }
+            alert(t("insufficientTokens"));
+            return false;
+        }
+        
+        async function deployModel(model) {
+            if (await spendTokens(model.cost, `Deploy: ${model.name}`)) {
+                deployedModels.push({ ...model, deployedAt: new Date().toISOString() });
+                await db.setItem(`deployed_${currentUser}`, deployedModels);
+                alert(`${t("deployedAlert")} ${model.name} (${formatNumber(model.cost)} tokens)`);
+                renderFullUI();
+                showView('deployed');
+            }
+        }
+        
+        async function removeModel(modelId) {
+            deployedModels = deployedModels.filter(m => m.id !== modelId);
+            await db.setItem(`deployed_${currentUser}`, deployedModels);
+            renderFullUI();
+            showView('deployed');
+        }
+        
+        async function submitCustomModel() {
+            const textarea = document.getElementById("customModelDesc");
+            if (!textarea || !textarea.value.trim()) return;
+            if (await spendTokens(2500, `Custom model request: ${textarea.value.trim().substring(0, 50)}...`)) {
+                alert(t("customRequestSent"));
+                textarea.value = "";
+                renderFullUI();
+            }
+        }
+        
+        async function loadFromDB() {
+            const t = await db.getItem(`tokens_${currentUser}`);
+            if (t) userTokens = t;
+            const d = await db.getItem(`deployed_${currentUser}`);
+            if (d) deployedModels = d;
+            const h = await db.getItem(`history_${currentUser}`);
+            if (h) modelUsageHistory = h;
+        }
+        
+        async function renderTokenHistory() {
+            const container = document.getElementById("tokenHistoryList");
+            if (!container) return;
+            if (modelUsageHistory.length === 0) {
+                container.innerHTML = `<div style='padding:1rem; text-align:center'>${t("noUsage")}</div>`;
+                return;
+            }
+            container.innerHTML = modelUsageHistory.map(h => `
+                <div class="transaction-item">
+                    <span>${new Date(h.date).toLocaleString(currentLang === 'pt' ? 'pt-BR' : 'en-US')}</span>
+                    <span style="color:var(--warning)">- ${formatNumber(h.amount)} tokens</span>
+                    <span style="font-size:0.65rem;">${h.description.substring(0, 35)}</span>
+                    <span>${formatNumber(h.balance)}</span>
+                </div>
+            `).join("");
+        }
+        
+        // ============================================
+        // MODAL
+        // ============================================
+        function showModal(model) {
+            const modal = document.getElementById("modelModal");
+            if (!modal) return;
+            document.getElementById("modalTitle").innerHTML = `<i class="fas fa-microchip"></i> ${model.name}`;
+            document.getElementById("modalDesc").innerHTML = model.desc;
+            document.getElementById("modalParams").innerHTML = model.params;
+            document.getElementById("modalType").innerHTML = model.type;
+            document.getElementById("modalCategory").innerHTML = model.category;
+            document.getElementById("modalCost").innerHTML = `${formatNumber(model.cost)} tokens`;
+            document.getElementById("modalDeployBtn").onclick = () => { deployModel(model); closeModal(); };
+            document.getElementById("modalDeployBtn").innerHTML = t("modalDeploy");
+            modal.style.display = "flex";
+        }
+        
+        function closeModal() { document.getElementById("modelModal").style.display = "none"; }
+        window.showModalFromCard = function(id) {
+            const model = modelCatalog.find(m => m.id === id);
+            if (model) showModal(model);
+        };
+        window.closeModal = closeModal;
+        
+        // ============================================
+        // RENDERIZAÇÃO PRINCIPAL
+        // ============================================
+        function renderFullUI() {
+            const taskSLMs = modelCatalog.filter(m => m.type === "Task SLM").length;
+            const generalModels = modelCatalog.filter(m => m.type === "General <20B").length;
+            
+            document.getElementById("appContainer").innerHTML = `
+                <div id="modelModal" class="modal" onclick="if(event.target===this) closeModal()">
+                    <div class="modal-content">
+                        <button class="modal-close" onclick="closeModal()">✕</button>
+                        <div class="modal-title" id="modalTitle"></div>
+                        <div class="modal-body" id="modalDesc"></div>
+                        <div class="modal-detail"><span>Parameters:</span><strong id="modalParams"></strong></div>
+                        <div class="modal-detail"><span>Type:</span><strong id="modalType"></strong></div>
+                        <div class="modal-detail"><span>Category:</span><strong id="modalCategory"></strong></div>
+                        <div class="modal-detail"><span>Cost:</span><strong id="modalCost"></strong></div>
+                        <button class="btn-primary" style="margin-top:1rem" id="modalDeployBtn">${t("modalDeploy")}</button>
+                    </div>
+                </div>
+                
+                <div id="browseView">
+                    <div class="hero">
+                        <h1>${t("heroTitle")}</h1>
+                        <p>${t("heroDesc")}</p>
+                        <div class="hero-stats">
+                            <div class="hero-stat"><div class="hero-stat-number">${modelCatalog.length}</div><div class="hero-stat-label">MODELS AVAILABLE</div></div>
+                            <div class="hero-stat"><div class="hero-stat-number">${taskSLMs}</div><div class="hero-stat-label">TASK SLMs</div></div>
+                            <div class="hero-stat"><div class="hero-stat-number">${generalModels}</div><div class="hero-stat-label">GENERAL <20B</div></div>
+                            <div class="hero-stat"><div class="hero-stat-number">FREE</div><div class="hero-stat-label">TO BROWSE</div></div>
+                        </div>
+                        <div class="free-badge">${t("freeBadge")}</div>
+                    </div>
+                    
+                    <div class="section-title"><i class="fas fa-store"></i> ${t("browseTitle")}</div>
+                    <div class="models-grid" id="modelsGrid"></div>
+                    
+                    <div class="custom-section">
+                        <h3>${t("customTitle")}</h3>
+                        <p>${t("customDesc")}</p>
+                        <textarea id="customModelDesc" class="custom-textarea" placeholder="${t("customPlaceholder")}"></textarea>
+                        <button id="submitCustomBtn" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">${t("customBtn")}</button>
+                    </div>
+                </div>
+                
+                <div id="customView" style="display:none;">
+                    <div class="custom-section">
+                        <h3>${t("customTitle")}</h3>
+                        <p>${t("customDesc")}</p>
+                        <textarea id="customModelDesc2" class="custom-textarea" placeholder="${t("customPlaceholder")}"></textarea>
+                        <button id="submitCustomBtn2" class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">${t("customBtn")}</button>
+                    </div>
+                </div>
+                
+                <div id="deployedView" style="display:none;">
+                    <div class="section-title"><i class="fas fa-rocket"></i> ${t("deployedTitle")}</div>
+                    <div id="deployedList" class="models-grid"></div>
+                </div>
+                
+                <div id="dashboardView" style="display:none;">
+                    <div class="stats-row">
+                        <div class="stat-card"><div class="stat-number neon">${formatNumber(userTokens)}</div><div class="stat-label-sm">${t("tokensAvailable").toUpperCase()}</div></div>
+                        <div class="stat-card"><div class="stat-number">${deployedModels.length}</div><div class="stat-label-sm">${t("activeModels")}</div></div>
+                        <div class="stat-card"><div class="stat-number">${modelUsageHistory.length}</div><div class="stat-label-sm">${t("transactions")}</div></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-history"></i> ${t("recentActivity")}</div>
+                        <div id="recentActivity" class="transactions-list"></div>
+                    </div>
+                </div>
+                
+                <div id="tokensView" style="display:none;">
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-coins"></i> ${t("myTokens")}</div>
+                        <div style="text-align:center; padding:1rem;">
+                            <div style="font-size:2.5rem; font-family:monospace; color:var(--primary);">${formatNumber(userTokens)}</div>
+                            <div style="margin:0.3rem 0;">${t("tokensAvailable")}</div>
+                            <div class="token-badge" style="display:inline-block;"><i class="fas fa-gift"></i> ${t("tokenWarning")}</div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><i class="fas fa-history"></i> ${t("usageHistory")}</div>
+                        <div id="tokenHistoryList" class="transactions-list"></div>
+                    </div>
+                </div>
+            `;
+            
+            // Render models grid
+            const grid = document.getElementById("modelsGrid");
+            if (grid) {
+                grid.innerHTML = modelCatalog.slice(0, 24).map(m => `
+                    <div class="model-card" onclick="window.showModalFromCard('${m.id}')">
+                        <div class="model-name">${m.name}</div>
+                        <div class="model-type">${m.type} • ${m.category}</div>
+                        <div class="model-desc">${m.desc}</div>
+                        <div class="model-meta">
+                            <span class="model-params"><i class="fas fa-microchip"></i> ${m.params}</span>
+                            <span class="model-cost"><i class="fas fa-coins"></i> ${formatNumber(m.cost)} tokens</span>
+                            <button class="deploy-btn" data-model-id="${m.id}">${t("deployBtn")}</button>
+                        </div>
+                    </div>
+                `).join("");
+                
+                document.querySelectorAll(".deploy-btn").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        const model = modelCatalog.find(m => m.id === btn.dataset.modelId);
+                        if (model) deployModel(model);
+                    });
+                });
+            }
+            
+            // Deployed list
+            const deployedList = document.getElementById("deployedList");
+            if (deployedList) {
+                if (deployedModels.length === 0) {
+                    deployedList.innerHTML = `<div style='grid-column:1/-1; text-align:center; padding:2rem; color:var(--text-muted);'>${t("noModels")}</div>`;
+                } else {
+                    deployedList.innerHTML = deployedModels.map(m => `
+                        <div class="model-card">
+                            <div class="model-name">${m.name}</div>
+                            <div class="model-type">${m.type} • ${t("deployedAt")}: ${new Date(m.deployedAt).toLocaleDateString(currentLang === 'pt' ? 'pt-BR' : 'en-US')}</div>
+                            <div class="model-desc">${m.desc}</div>
+                            <div class="model-meta">
+                                <span class="model-params"><i class="fas fa-microchip"></i> ${m.params}</span>
+                                <button class="deploy-btn" style="background:#ff335520; border-color:#ff3355; color:#ff3355;" data-remove-id="${m.id}">${t("removeBtn")}</button>
+                            </div>
+                        </div>
+                    `).join("");
+                    document.querySelectorAll("[data-remove-id]").forEach(btn => {
+                        btn.addEventListener("click", (e) => { e.stopPropagation(); removeModel(btn.dataset.removeId); });
+                    });
+                }
+            }
+            
+            // Recent activity
+            const recent = document.getElementById("recentActivity");
+            if (recent) {
+                if (modelUsageHistory.length === 0) {
+                    recent.innerHTML = `<div style='padding:1rem; text-align:center'>${t("noActivity")}</div>`;
+                } else {
+                    recent.innerHTML = modelUsageHistory.slice(0, 10).map(h => `
+                        <div class="transaction-item">
+                            <span>${new Date(h.date).toLocaleString(currentLang === 'pt' ? 'pt-BR' : 'en-US')}</span>
+                            <span style="color:var(--warning)">- ${formatNumber(h.amount)} tokens</span>
+                            <span style="font-size:0.7rem;">${h.description}</span>
+                        </div>
+                    `).join("");
+                }
+            }
+            
+            document.getElementById("submitCustomBtn")?.addEventListener("click", submitCustomModel);
+            document.getElementById("submitCustomBtn2")?.addEventListener("click", submitCustomModel);
+            renderTokenHistory();
+        }
+        
+        function showView(view) {
+            const views = ["browseView", "customView", "deployedView", "dashboardView", "tokensView"];
+            views.forEach(v => {
+                const el = document.getElementById(v);
+                if (el) el.style.display = v === `${view}View` ? "block" : "none";
+            });
+        }
+        
+        function closeMenu() { document.getElementById("sideMenu")?.classList.remove("open"); document.getElementById("menuOverlay")?.classList.remove("open"); }
+        
+        // ============================================
+        // ATUALIZAÇÃO DE IDIOMA
+        // ============================================
+        function updateLanguage() {
+            // Login screen
+            document.getElementById("loginSubtitle").innerText = t("loginSubtitle");
+            document.getElementById("loginBtnText").innerText = t("loginBtnText");
+            document.getElementById("loginTokenText").innerText = t("loginTokenText");
+            document.getElementById("loginHint").innerText = t("loginHint");
+            document.getElementById("loadingText").innerText = t("loading");
+            
+            // PWA Banner
+            document.getElementById("bannerText").innerText = t("bannerText");
+            document.getElementById("installBtnText").innerText = t("installBtnText");
+            
+            // Menu
+            document.getElementById("menuBrowseText").innerText = t("menuBrowse");
+            document.getElementById("menuCustomText").innerText = t("menuCustom");
+            document.getElementById("menuDashboardText").innerText = t("menuDashboard");
+            document.getElementById("menuDeployedText").innerText = t("menuDeployed");
+            document.getElementById("menuTokensText").innerText = t("menuTokens");
+            document.getElementById("menuThemeText").innerText = t("menuTheme");
+            document.getElementById("menuLangText").innerHTML = currentLang === "pt" ? "Idioma: Português" : "Language: English";
+            document.getElementById("menuLogoutText").innerText = t("menuLogout");
+            
+            // Header
+            document.getElementById("statusText").innerText = t("statusText");
+            document.getElementById("tokenLabel").innerText = t("tokenLabel");
+            
+            // Re-render main UI
+            renderFullUI();
+        }
+        
+        // ============================================
+        // EVENT LISTENERS E INICIALIZAÇÃO
+        // ============================================
+        document.getElementById("closeBannerBtn")?.addEventListener("click", () => {
+            document.getElementById("pwaBanner")?.classList.add("hide-banner");
+            localStorage.setItem("pwaBannerClosed", "true");
+        });
+        
+        document.getElementById("installAppBtn")?.addEventListener("click", async () => {
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
+            else alert(currentLang === 'pt' ? "📱 Para instalar: Chrome → ⋮ → 'Instalar aplicativo' | Safari → Compartilhar → 'Adicionar à Tela de Início'" : "📱 To install: Chrome → ⋮ → 'Install app' | Safari → Share → 'Add to Home Screen'");
+        });
+        
+        if (localStorage.getItem("pwaBannerClosed") === "true") document.getElementById("pwaBanner")?.classList.add("hide-banner");
+        window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredPrompt = e; if (localStorage.getItem("pwaBannerClosed") !== "true") document.getElementById("pwaBanner")?.classList.remove("hide-banner"); });
+        
+        document.getElementById("loginBtn")?.addEventListener("click", async () => {
+            const username = document.getElementById("loginUser").value.trim();
+            if (username) {
+                currentUser = username;
+                document.getElementById("loginContainer").classList.add("hide");
+                document.getElementById("mainApp").classList.add("visible");
+                document.getElementById("userNameDisplay").innerText = currentUser;
+                await loadFromDB();
+                renderFullUI();
+                showView("browse");
+            } else {
+                document.getElementById("loginError").innerText = currentLang === 'pt' ? "❌ Digite um nome de usuário" : "❌ Please enter a username";
+            }
+        });
+        
+        document.getElementById("hamburgerBtn")?.addEventListener("click", () => { document.getElementById("sideMenu")?.classList.toggle("open"); document.getElementById("menuOverlay")?.classList.toggle("open"); });
+        document.getElementById("menuOverlay")?.addEventListener("click", closeMenu);
+        document.getElementById("menuBrowse")?.addEventListener("click", () => { showView("browse"); closeMenu(); });
+        document.getElementById("menuCustom")?.addEventListener("click", () => { showView("custom"); closeMenu(); });
+        document.getElementById("menuDashboard")?.addEventListener("click", () => { showView("dashboard"); closeMenu(); });
+        document.getElementById("menuDeployed")?.addEventListener("click", () => { showView("deployed"); closeMenu(); });
+        document.getElementById("menuTokens")?.addEventListener("click", () => { showView("tokens"); closeMenu(); renderTokenHistory(); });
+        document.getElementById("menuTheme")?.addEventListener("click", () => { document.body.classList.toggle("light-theme"); closeMenu(); });
+        document.getElementById("menuLang")?.addEventListener("click", () => { 
+            currentLang = currentLang === "pt" ? "en" : "pt"; 
+            updateLanguage(); 
+            closeMenu(); 
+        });
+        document.getElementById("menuLogout")?.addEventListener("click", () => { document.getElementById("mainApp")?.classList.remove("visible"); document.getElementById("loginContainer")?.classList.remove("hide"); closeMenu(); });
+        
+        setTimeout(() => { document.getElementById("loadingScreen")?.classList.add("hide"); }, 1200);
+    })();
+</script>
+</body>
+</html>
